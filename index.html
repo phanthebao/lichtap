@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kế hoạch tập luyện</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 10px;
+      margin: 0;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: red;
+      margin: 10px 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background-color: white;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    th {
+      background-color: #e6f2ff;
+      color: red;
+    }
+
+    table.schedule th {
+      background-color: red;
+      color: white;
+      font-size: 1.2em;
+    }
+
+    table.schedule td:first-child {
+      background-color: #4a90e2;
+      color: white;
+      font-weight: bold;
+    }
+
+    table.schedule td {
+      background-color: #b3e0f2;
+    }
+
+    table.schedule td:last-child {
+      background-color: #fefbd8;
+    }
+
+    td[contenteditable] {
+      background-color: #fefbd8;
+    }
+
+    .capture-container h3 {
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+
+    @media screen and (max-width: 600px) {
+      table, th, td {
+        font-size: 12px;
+        padding: 6px;
+      }
+
+      .controls button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      h1 {
+        font-size: 1.6em;
+      }
+
+      h3 {
+        font-size: 1.2em;
+      }
+    }
+
+    @media print {
+      .controls {
+        display: none;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function captureSection(sectionId, filename) {
+      const section = document.getElementById(sectionId);
+      const title = section.querySelector('h3');
+      html2canvas(section).then(canvas => {
+        const ctx = canvas.getContext('2d');
+        ctx.font = '20px Arial';
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText(title.textContent, canvas.width / 2, 30);
+
+        canvas.toBlob(function(blob) {
+          const link = document.createElement('a');
+          link.download = filename;
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        });
+      });
+    }
+  </script>
+</head>
+<body>
+
+<h1>LỊCH TẬP</h1>
+<table class="schedule">
+  <thead>
+    <tr>
+      <th>BUỔI</th>
+      <th>BÀI TẬP</th>
+      <th>GHI CHÚ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td contenteditable="true">CHÂN+NGỰC+VAI</td>
+      <td rowspan="3" contenteditable="true">CARDIO CÀNG NHIỀU CÀNG TỐT. ƯU TIÊN ĐI BỘ NHANH</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td contenteditable="true">LƯNG+TAY+BỤNG</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td contenteditable="true">LẶP LẠI</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="controls">
+  <button onclick="captureSection('container1', 'buoi1.png')">Lưu ảnh Buổi 1</button>
+  <button onclick="captureSection('container2', 'buoi2.png')">Lưu ảnh Buổi 2</button>
+  <button onclick="captureSection('container3', 'buoi3.png')">Lưu ảnh Buổi 3</button>
+</div>
+
+<div class="capture-container" id="container1">
+  <h3>BUỔI 1</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>TÊN D.TÁC</th>
+        <th>TEMPO</th>
+        <th>HIỆP</th>
+        <th>CÁI/LẦN</th>
+        <th>THỜI GIAN NGHỈ</th>
+        <th>GHI CHÚ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td contenteditable="true">Squat với máy, đứng xoay người lại</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>2</td><td contenteditable="true">Hip thrust</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>3</td><td contenteditable="true">Lunge trong smith</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>4</td><td contenteditable="true">Romanian deadlift</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>5</td><td contenteditable="true">Ép ngực máy</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>6</td><td contenteditable="true">Bay vai giữa tạ đơn</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="capture-container" id="container2">
+  <h3>BUỔI 2</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>TÊN D.TÁC</th>
+        <th>TEMPO</th>
+        <th>HIỆP</th>
+        <th>CÁI/LẦN</th>
+        <th>THỜI GIAN NGHỈ</th>
+        <th>GHI CHÚ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td contenteditable="true">Kéo lưng trên nắm ngược hẹp tay</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>2</td><td contenteditable="true">Kéo lưng ngang</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>3</td><td contenteditable="true">Good morning</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>4</td><td contenteditable="true">Tay sau dây thừng</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="capture-container" id="container3">
+  <h3>BUỔI 3</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>TÊN D.TÁC</th>
+        <th>TEMPO</th>
+        <th>HIỆP</th>
+        <th>CÁI/LẦN</th>
+        <th>THỜI GIAN NGHỈ</th>
+        <th>GHI CHÚ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Nội dung tương tự BUỔI 1, người dùng có thể chỉnh sửa -->
+      <tr><td>1</td><td contenteditable="true">Squat với máy, đứng xoay người lại</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>2</td><td contenteditable="true">Hip thrust</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>3</td><td contenteditable="true">Lunge trong smith</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>4</td><td contenteditable="true">Romanian deadlift</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>5</td><td contenteditable="true">Ép ngực máy</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr><td>6</td><td contenteditable="true">Bay vai giữa tạ đơn</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
