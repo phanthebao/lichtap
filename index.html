@@ -1,245 +1,232 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kế hoạch tập luyện</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background: #f4f4f4;
       padding: 10px;
       margin: 0;
     }
 
-    h1, h2, h3 {
+    h2 {
       text-align: center;
       color: red;
+      margin-top: 30px;
+    }
+
+    .button-container {
+      text-align: center;
       margin: 10px 0;
     }
 
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin: 10px 0;
-    }
-
-    .controls button {
-      padding: 10px 15px;
+    button {
+      margin: 5px;
+      padding: 8px 16px;
       font-size: 16px;
-      cursor: pointer;
-      background-color: #e74c3c;
-      color: white;
+      border-radius: 8px;
       border: none;
-      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .no-print {
+      display: inline-block;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 14px;
-      background-color: white;
-      margin-bottom: 20px;
+      table-layout: fixed;
+      margin-bottom: 30px;
     }
 
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
-      text-align: center;
+      text-align: left;
+      vertical-align: top;
+      background-color: white;
       word-wrap: break-word;
+      word-break: break-word;
     }
 
     th {
-      background-color: #e6f2ff;
+      background-color: #d8ecff;
       color: red;
     }
 
-    table.schedule th {
-      background-color: red;
-      color: white;
-      font-size: 1.2em;
+    td[contenteditable="true"] {
+      white-space: pre-wrap;
     }
 
-    table.schedule td:first-child {
-      background-color: #4a90e2;
-      color: white;
-      font-weight: bold;
+    th:nth-child(1), td:nth-child(1) {
+      width: 40px;
     }
 
-    table.schedule td {
-      background-color: #b3e0f2;
-    }
-
-    table.schedule td:last-child {
-      background-color: #fefbd8;
-    }
-
-    td[contenteditable] {
-      background-color: #fefbd8;
-    }
-
-    .capture-container h3 {
-      margin-bottom: 10px;
-      font-size: 1.3em;
+    @media print {
+      .no-print {
+        display: none !important;
+      }
     }
 
     @media screen and (max-width: 600px) {
       table, th, td {
-        font-size: 12px;
-        padding: 6px;
-      }
-
-      .controls button {
         font-size: 14px;
-        padding: 8px 12px;
-      }
-
-      h1 {
-        font-size: 1.6em;
-      }
-
-      h3 {
-        font-size: 1.2em;
-      }
-    }
-
-    @media print {
-      .controls {
-        display: none;
       }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script>
-    function captureSection(sectionId, filename) {
-      const section = document.getElementById(sectionId);
-      const title = section.querySelector('h3');
-      html2canvas(section).then(canvas => {
-        const ctx = canvas.getContext('2d');
-        ctx.font = '20px Arial';
-        ctx.fillStyle = 'red';
-        ctx.textAlign = 'center';
-        ctx.fillText(title.textContent, canvas.width / 2, 30);
-
-        canvas.toBlob(function(blob) {
-          const link = document.createElement('a');
-          link.download = filename;
-          link.href = URL.createObjectURL(blob);
-          link.click();
-        });
-      });
-    }
-  </script>
 </head>
 <body>
 
-<h1>LỊCH TẬP</h1>
-<table class="schedule">
-  <thead>
-    <tr>
-      <th>BUỔI</th>
-      <th>BÀI TẬP</th>
-      <th>GHI CHÚ</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td contenteditable="true">CHÂN+NGỰC+VAI</td>
-      <td rowspan="3" contenteditable="true">CARDIO CÀNG NHIỀU CÀNG TỐT. ƯU TIÊN ĐI BỘ NHANH</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td contenteditable="true">LƯNG+TAY+BỤNG</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td contenteditable="true">LẶP LẠI</td>
-    </tr>
-  </tbody>
-</table>
+<div id="content">
 
-<div class="controls">
-  <button onclick="captureSection('container1', 'buoi1.png')">Lưu ảnh Buổi 1</button>
-  <button onclick="captureSection('container2', 'buoi2.png')">Lưu ảnh Buổi 2</button>
-  <button onclick="captureSection('container3', 'buoi3.png')">Lưu ảnh Buổi 3</button>
-</div>
-
-<div class="capture-container" id="container1">
-  <h3>BUỔI 1</h3>
-  <table>
+  <!-- LỊCH TẬP -->
+  <h2>LỊCH TẬP</h2>
+  <table id="lichTap">
     <thead>
       <tr>
         <th>STT</th>
-        <th>TÊN D.TÁC</th>
-        <th>TEMPO</th>
-        <th>HIỆP</th>
-        <th>CÁI/LẦN</th>
-        <th>THỜI GIAN NGHỈ</th>
+        <th>BÀI TẬP</th>
         <th>GHI CHÚ</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td contenteditable="true">Squat với máy, đứng xoay người lại</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>2</td><td contenteditable="true">Hip thrust</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>3</td><td contenteditable="true">Lunge trong smith</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>4</td><td contenteditable="true">Romanian deadlift</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>5</td><td contenteditable="true">Ép ngực máy</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>6</td><td contenteditable="true">Bay vai giữa tạ đơn</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      <tr>
+        <td>1</td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+      </tr>
     </tbody>
   </table>
+  <div class="button-container no-print">
+    <button onclick="addLichTapRow()">+ Thêm dòng</button>
+    <button onclick="removeLichTapRow()">🗑 Xoá dòng</button>
+  </div>
+
+  <!-- Các bảng BUỔI -->
+  <div id="sessions"></div>
+
 </div>
 
-<div class="capture-container" id="container2">
-  <h3>BUỔI 2</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>STT</th>
-        <th>TÊN D.TÁC</th>
-        <th>TEMPO</th>
-        <th>HIỆP</th>
-        <th>CÁI/LẦN</th>
-        <th>THỜI GIAN NGHỈ</th>
-        <th>GHI CHÚ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td contenteditable="true">Kéo lưng trên nắm ngược hẹp tay</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>2</td><td contenteditable="true">Kéo lưng ngang</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>3</td><td contenteditable="true">Good morning</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>4</td><td contenteditable="true">Tay sau dây thừng</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-    </tbody>
-  </table>
+<!-- Nút thêm buổi và xuất ảnh -->
+<div class="button-container no-print">
+  <button onclick="addSession()">+ Thêm Buổi</button>
+  <button onclick="exportToImage()">⬇ Tải ảnh</button>
 </div>
 
-<div class="capture-container" id="container3">
-  <h3>BUỔI 3</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>STT</th>
-        <th>TÊN D.TÁC</th>
-        <th>TEMPO</th>
-        <th>HIỆP</th>
-        <th>CÁI/LẦN</th>
-        <th>THỜI GIAN NGHỈ</th>
-        <th>GHI CHÚ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Nội dung tương tự BUỔI 1, người dùng có thể chỉnh sửa -->
-      <tr><td>1</td><td contenteditable="true">Squat với máy, đứng xoay người lại</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>2</td><td contenteditable="true">Hip thrust</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>3</td><td contenteditable="true">Lunge trong smith</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>4</td><td contenteditable="true">Romanian deadlift</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>5</td><td contenteditable="true">Ép ngực máy</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-      <tr><td>6</td><td contenteditable="true">Bay vai giữa tạ đơn</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-    </tbody>
-  </table>
-</div>
+<!-- Thư viện chụp ảnh -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+  // LỊCH TẬP: thêm/xoá dòng
+  function addLichTapRow() {
+    const table = document.querySelector("#lichTap tbody");
+    const rowCount = table.rows.length + 1;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${rowCount}</td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+    `;
+    table.appendChild(row);
+  }
+
+  function removeLichTapRow() {
+    const table = document.querySelector("#lichTap tbody");
+    if (table.rows.length > 1) {
+      table.deleteRow(table.rows.length - 1);
+    }
+  }
+
+  // Buổi tập
+  let sessionCount = 0;
+
+  function addSession() {
+    sessionCount++;
+    const container = document.getElementById('sessions');
+
+    const sessionHTML = `
+      <h2>BUỔI ${sessionCount}</h2>
+      <table id="session-${sessionCount}">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>TÊN Đ.TÁC</th>
+            <th>TEMPO</th>
+            <th>HIỆP</th>
+            <th>CÁI/LẦN</th>
+            <th>THỜI GIAN</th>
+            <th>GHI CHÚ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="button-container no-print">
+        <button onclick="addRow(${sessionCount})">+ Thêm dòng</button>
+        <button onclick="removeRow(${sessionCount})">🗑 Xoá dòng</button>
+      </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", sessionHTML);
+  }
+
+  function addRow(sessionId) {
+    const table = document.querySelector(`#session-${sessionId} tbody`);
+    const rowCount = table.rows.length + 1;
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${rowCount}</td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+    `;
+    table.appendChild(newRow);
+  }
+
+  function removeRow(sessionId) {
+    const table = document.querySelector(`#session-${sessionId} tbody`);
+    if (table.rows.length > 1) {
+      table.deleteRow(table.rows.length - 1);
+    }
+  }
+
+  // Chụp toàn trang thành ảnh
+  function exportToImage() {
+    const content = document.getElementById('content');
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
+
+    html2canvas(content).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'ke_hoach_tap_luyen.png';
+      link.href = canvas.toDataURL();
+      link.click();
+
+      document.querySelectorAll('.no-print').forEach(el => el.style.display = 'inline-block');
+    });
+  }
+</script>
 
 </body>
 </html>
